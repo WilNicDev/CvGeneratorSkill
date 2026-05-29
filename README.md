@@ -10,11 +10,12 @@ CvGeneratorSkill is a set of Claude Code skills that generate professional, ATS-
 
 ## Features
 
-- **CV Generation Skill** — End-to-end workflow: ingest a job offer, match against your career data, compose a tailored CV, and generate a styled .docx
+- **CV Import Skill** — Extract career data from an existing CV (PDF or Word) and populate the database automatically
 - **Experience Review Skill** — Quality assurance for your career database: detects duplications, checks skill consistency, validates terminology, and proposes improvements
+- **CV Generation Skill** — End-to-end workflow: ingest a job offer, match against your career data, compose a tailored CV, and generate a styled .docx
 - **Structured Database** — Markdown files with YAML front-matter for profile, experiences, skills, education, certifications, and languages
 - **ATS-Friendly Output** — Single-column, clean typography, no tables or graphics — optimised for Applicant Tracking Systems
-- **Interactive Workflow** — User approval at key steps (career highlights selection, skill adjustments) before generating the final document
+- **Interactive Workflow** — User approval at key steps before applying changes or generating documents
 
 ## Prerequisites
 
@@ -30,44 +31,49 @@ git clone https://github.com/WilNicDev/CvGeneratorSkill.git
 cd CvGeneratorSkill
 ```
 
-### 2. Set up your career database
+### 2. Install the skills
 
-Copy the sample database and replace with your own data:
-
-```bash
-cp -r cvDatabase-sample cvDatabase
-```
-
-Edit the files in `cvDatabase/` with your career information. See [Database Structure](#database-structure) for the expected format.
-
-### 3. Install the skills
-
-The skills are located in `cv-generation/` and `review-experience/`. To make them available in Claude Code, copy them to your Claude Code skills directory:
+Copy the skills to your Claude Code skills directory:
 
 ```bash
-cp -r cv-generation ~/.claude/skills/cv-generation.1.0
-cp -r review-experience ~/.claude/skills/review-experience
+cp -r skills/cv-import ~/.claude/skills/cv-import
+cp -r skills/cv-generation ~/.claude/skills/cv-generation
+cp -r skills/review-experience ~/.claude/skills/review-experience
 ```
 
-### 4. Generate a CV
+### 3. Recommended workflow
 
-Open Claude Code in the project directory and use natural language:
+The three skills are designed to be used in sequence:
+
+#### Step 1 — Import your CV data
+
+Start by extracting your career data from an existing CV document:
+
+```
+Import my CV from /path/to/my-cv.pdf
+```
+
+This parses your PDF or Word document and populates `cvDatabase/` with structured markdown files — one per experience, plus profile, skills catalogue, education, certifications, and languages.
+
+#### Step 2 — Review and refine
+
+Run the review skill on each experience file to catch inconsistencies, improve terminology, and ensure skill consistency with the master catalogue:
+
+```
+Review the experience file for Acme Corp
+```
+
+Repeat for each experience. The skill detects duplications between responsibilities and achievements, checks skill classification, validates wording quality, and proposes improvements for your approval.
+
+#### Step 3 — Generate tailored CVs
+
+Once your database is clean, generate CVs tailored to specific job offers:
 
 ```
 Generate a CV for this job offer: [paste job description or provide URL]
 ```
 
-Or use the skill trigger phrases:
-
-- *"Generate a CV for this job offer"*
-- *"Create a resume tailored to this position"*
-- *"Make a CV for this role"*
-
-### 5. Review your experience data (optional)
-
-```
-Review the experience file for Acme Corp
-```
+The skill matches your experiences against job requirements, presents a selection for your review, and generates a styled Word document (.docx).
 
 ## Database Structure
 
@@ -127,19 +133,22 @@ See `cvDatabase-sample/` for complete examples of all file types.
 
 ## Skills Reference
 
-### cv-generation
+### cv-import
 
-Generates a tailored CV from your career database for a specific job offer.
+Extracts career data from an existing CV document and populates the database.
 
-**Triggers:** *"generate a CV"*, *"create a resume"*, *"tailor my CV"*, *"make a CV for this job offer"*
+**Triggers:** *"import my CV"*, *"extract CV data"*, *"populate database from my resume"*, *"parse my CV"*
+
+**Input:** PDF file, Word document (.docx), or pasted text
 
 **Workflow:**
-1. Ingest the job offer (text, file, or URL)
-2. Read all files from `cvDatabase/`
-3. Match and rank experiences against job requirements
-4. Present selection to user for review and approval
-5. Compose CV content following the template structure
-6. Generate styled .docx output
+1. Ingest the document (PDF, Word, or pasted text)
+2. Check existing database state
+3. Extract structured data (profile, experiences, education, certifications, languages, skills)
+4. Classify and structure each experience (skills vs tools, topics, headline, career highlight)
+5. Build or merge the skills catalogue
+6. Present extraction summary to user for review
+7. Write database files after user confirmation
 
 ### review-experience
 
@@ -155,7 +164,29 @@ Reviews and improves experience files in `cvDatabase/experience/`.
 - Terminology and wording quality
 - Topic coverage
 
+### cv-generation
+
+Generates a tailored CV from your career database for a specific job offer.
+
+**Triggers:** *"generate a CV"*, *"create a resume"*, *"tailor my CV"*, *"make a CV for this job offer"*
+
+**Workflow:**
+1. Ingest the job offer (text, file, or URL)
+2. Read all files from `cvDatabase/`
+3. Match and rank experiences against job requirements
+4. Present selection to user for review and approval
+5. Compose CV content following the template structure
+6. Generate styled .docx output
+
 ## Customisation
+
+### Setting up the database manually
+
+If you prefer not to import from an existing CV, copy the sample database and edit manually:
+
+```bash
+cp -r cvDatabase-sample cvDatabase
+```
 
 ### Adding experiences
 
@@ -178,13 +209,16 @@ CvGeneratorSkill/
 ├── CONTRIBUTING.md            # Contribution guidelines
 ├── CLAUDE.md                  # Claude Code guidance
 ├── .gitignore
-├── cv-generation/             # CV generation skill
-│   ├── SKILL.md               # Skill definition and workflow
-│   ├── references/            # Template specs and JSON schema
-│   └── scripts/               # Python .docx generation script
-├── review-experience/         # Experience review skill
-│   └── SKILL.md
-├── cvDatabase/                # Your career data (not tracked in git for forks)
+├── skills/                    # All Claude Code skills
+│   ├── cv-import/             # CV import skill
+│   │   └── SKILL.md
+│   ├── cv-generation/         # CV generation skill
+│   │   ├── SKILL.md
+│   │   ├── references/        # Template specs and JSON schema
+│   │   └── scripts/           # Python .docx generation script
+│   └── review-experience/     # Experience review skill
+│       └── SKILL.md
+├── cvDatabase/                # Your career data
 └── cvDatabase-sample/         # Anonymised example database
 ```
 

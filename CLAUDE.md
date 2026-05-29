@@ -43,7 +43,10 @@ New users should copy `cvDatabase-sample/` to `cvDatabase/` and replace the plac
 
 ## Skills
 
-This project includes two Claude Code skills:
+All skills live in the `skills/` folder. This project includes three Claude Code skills:
 
-- **`cv-generation/`** — Main CV generation workflow (ingest job offer, match, compose, generate .docx)
-- **`review-experience/`** — Quality assurance for experience files (duplication detection, skill consistency, terminology checks)
+- **`skills/cv-import/`** — Extract career data from an existing CV (PDF or Word) and populate `cvDatabase/`
+- **`skills/cv-generation/`** — Main CV generation workflow (ingest job offer, match, compose, generate .docx)
+- **`skills/review-experience/`** — Quality assurance for experience files (duplication detection, skill consistency, terminology checks)
+
+Recommended workflow: **import** (populate database) -> **review** (QA each experience) -> **generate** (tailored CV for a job offer)

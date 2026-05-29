@@ -6,7 +6,7 @@ Thank you for your interest in contributing to CvGeneratorSkill.
 
 - Use [GitHub Issues](../../issues) to report bugs or request features.
 - Include steps to reproduce, expected behaviour, and actual behaviour.
-- For skill-related issues, specify which skill (`cv-generation` or `review-experience`) is affected.
+- For skill-related issues, specify which skill (`cv-import`, `cv-generation`, or `review-experience`) is affected.
 
 ## Submitting Pull Requests
 
