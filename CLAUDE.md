@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with this repository. The skills follow the standard agent skill format and are compatible with Claude Code, Claude Cowork, Codex, and other AI coding agents. Skills are actively developed and tested using the Claude ecosystem.
 
 ## Purpose
 
-This project uses AI skills to generate tailored CVs for specific job offers, based on structured data in a `cvDatabase/` folder. Each user populates their own `cvDatabase/` with their career data. A sample database is provided in `cvDatabase-sample/` as a starting point.
+This project uses agent skills to generate tailored CVs for specific job offers, based on structured data in a `cvDatabase/` folder. Each user populates their own `cvDatabase/` with their career data. A sample database is provided in `cvDatabase-sample/` as a starting point.
 
 ## Critical Rule: Grounding
 
@@ -43,7 +43,7 @@ New users should copy `cvDatabase-sample/` to `cvDatabase/` and replace the plac
 
 ## Skills
 
-All skills live in the `skills/` folder. This project includes three Claude Code skills:
+All skills live in the `skills/` folder. This project includes three agent skills:
 
 - **`skills/cv-import/`** — Extract career data from an existing CV (PDF or Word) and populate `cvDatabase/`
 - **`skills/cv-generation/`** — Main CV generation workflow (ingest job offer, match, compose, generate .docx)

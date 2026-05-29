@@ -1,10 +1,12 @@
 # CvGeneratorSkill
 
-AI-powered CV generation using [Claude Code](https://claude.ai/code) skills. Tailors your CV to specific job offers by matching structured career data against job requirements — without inventing or fabricating any information.
+AI-powered CV generation using agent skills. Tailors your CV to specific job offers by matching structured career data against job requirements — without inventing or fabricating any information.
 
 ## Overview
 
-CvGeneratorSkill is a set of Claude Code skills that generate professional, ATS-friendly CVs from a structured markdown database of your career history. Given a job offer, the skills analyse requirements, match them against your experiences, skills, and qualifications, and produce a tailored CV as a Word document (.docx).
+CvGeneratorSkill is a set of agent skills that generate professional, ATS-friendly CVs from a structured markdown database of your career history. Given a job offer, the skills analyse requirements, match them against your experiences, skills, and qualifications, and produce a tailored CV as a Word document (.docx).
+
+The skills follow the **standard agent skill format** (markdown SKILL.md with YAML front-matter) and are compatible with any tool that supports this convention, including [Claude Code](https://claude.ai/code), [Claude Cowork](https://claude.ai), [Codex](https://github.com/openai/codex), and other AI coding agents. The skills are actively developed and tested using the Claude ecosystem (Claude Code CLI, Claude Code desktop app, and Claude Cowork).
 
 **Key principle:** Generated CVs are strictly grounded to your data. Job offer information is only used to filter, reorder, and highlight existing experiences — never to invent skills or achievements.
 
@@ -17,9 +19,20 @@ CvGeneratorSkill is a set of Claude Code skills that generate professional, ATS-
 - **ATS-Friendly Output** — Single-column, clean typography, no tables or graphics — optimised for Applicant Tracking Systems
 - **Interactive Workflow** — User approval at key steps before applying changes or generating documents
 
+## Compatibility
+
+The skills use the standard agent skill format (markdown with YAML front-matter) and should work with any AI coding agent that supports skill/instruction files. Tested and actively maintained with:
+
+| Tool | Status |
+|------|--------|
+| [Claude Code](https://claude.ai/code) (CLI & desktop) | Actively tested |
+| [Claude Cowork](https://claude.ai) | Actively tested |
+| [Codex](https://github.com/openai/codex) | Compatible (untested) |
+| Other AI coding agents | Compatible if they support markdown skill files |
+
 ## Prerequisites
 
-- [Claude Code](https://claude.ai/code) CLI installed and configured
+- An AI coding agent that supports agent skills (see [Compatibility](#compatibility))
 - [uv](https://docs.astral.sh/uv/) (Python package manager) — used to run the .docx generation script
 
 ## Quick Start
@@ -33,13 +46,15 @@ cd CvGeneratorSkill
 
 ### 2. Install the skills
 
-Copy the skills to your Claude Code skills directory:
+**Claude Code / Claude Cowork** — Copy the skills to your Claude Code skills directory:
 
 ```bash
 cp -r skills/cv-import ~/.claude/skills/cv-import
 cp -r skills/cv-generation ~/.claude/skills/cv-generation
 cp -r skills/review-experience ~/.claude/skills/review-experience
 ```
+
+**Other agents** — Point your agent to the `skills/` folder or copy the SKILL.md files into your agent's skill/instruction directory. The skills are self-contained markdown files that any compatible agent can interpret.
 
 ### 3. Recommended workflow
 
@@ -209,7 +224,7 @@ CvGeneratorSkill/
 ├── CONTRIBUTING.md            # Contribution guidelines
 ├── CLAUDE.md                  # Claude Code guidance
 ├── .gitignore
-├── skills/                    # All Claude Code skills
+├── skills/                    # Agent skills (standard skill format)
 │   ├── cv-import/             # CV import skill
 │   │   └── SKILL.md
 │   ├── cv-generation/         # CV generation skill
