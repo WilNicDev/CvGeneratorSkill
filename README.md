@@ -144,7 +144,7 @@ Company context paragraph.
 - Bullet points in past tense...
 ```
 
-See `cvDatabase-sample/` for complete examples of all file types.
+See `cvDatabase-sample/` for a starter template or `cvDatabase-William Nicora/` for a full real-world example with 14 experiences, 6 education entries, and 3 certifications.
 
 ## Skills Reference
 
@@ -233,8 +233,9 @@ CvGeneratorSkill/
 │   │   └── scripts/           # Python .docx generation script
 │   └── review-experience/     # Experience review skill
 │       └── SKILL.md
-├── cvDatabase/                # Your career data
-└── cvDatabase-sample/         # Anonymised example database
+├── cvDatabase/                # Your career data (created by you)
+├── cvDatabase-William Nicora/ # Real-world example database
+└── cvDatabase-sample/         # Anonymised starter template
 ```
 
 ## License

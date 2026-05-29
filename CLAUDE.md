@@ -24,7 +24,7 @@ cvDatabase/
 └── certifications/         # One file per certification
 ```
 
-New users should copy `cvDatabase-sample/` to `cvDatabase/` and replace the placeholder content with their own career data. See the sample files for the expected YAML front-matter fields and body structure.
+New users should copy `cvDatabase-sample/` to `cvDatabase/` and replace the placeholder content with their own career data, or use the `cv-import` skill to extract data from an existing CV. A full real-world example is available in `cvDatabase-William Nicora/` for reference.
 
 ### Experience file conventions
 
