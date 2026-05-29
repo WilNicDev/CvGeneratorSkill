@@ -26,7 +26,7 @@ CvGeneratorSkill is a set of Claude Code skills that generate professional, ATS-
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/wilnicdev/CvGeneratorSkill.git
+git clone https://github.com/WilNicDev/CvGeneratorSkill.git
 cd CvGeneratorSkill
 ```
 
